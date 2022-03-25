@@ -1,5 +1,8 @@
 import requests
 import re
+import urllib3
+
+urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 
 class Repository:
   #
@@ -11,7 +14,7 @@ class Repository:
   
   def get_repository(self):
     url = "https://api.github.com/repos/{}/{}/git/trees/master?recursive=1".format(self.user, self.repository)
-    response = requests.get(url)
+    response = requests.get(url,verify=False)
     return response.json()
 
 class TreePath:
@@ -45,7 +48,7 @@ class URLValidator():
     url_validator = []
     final_list = []
     for tree_path in self.path:
-      response = requests.get('{}{}'.format(self.ip,tree_path))
+      response = requests.get('{}{}'.format(self.ip,tree_path),verify=False)
       url_validator.append({
             'URL': '{}{}'.format(self.ip, tree_path),
             'STATUS': '{}'.format(response.status_code)
@@ -73,7 +76,7 @@ class CreateTextFile:
 if __name__ == '__main__':
   user = "ipfire"
   repo = "ipfire-2.x"
-  ip = 'https://github.com/ipfire/ipfire-2.x/tree/master/html/cgi-bin/'
+  ip = 'https://172.16.1.100:444/cgi-bin/'
   repository = Repository(user,repo).get_repository()
   tree = TreePath(repository).tree_path()
   validator = URLValidator(ip,tree).response_status_code()
