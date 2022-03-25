@@ -76,7 +76,7 @@ class CreateTextFile:
 if __name__ == '__main__':
   user = "ipfire"
   repo = "ipfire-2.x"
-  ip = 'https://172.16.1.100:444/cgi-bin/'
+  ip = 'https://github.com/ipfire/ipfire-2.x/tree/master/html/cgi-bin/'
   repository = Repository(user,repo).get_repository()
   tree = TreePath(repository).tree_path()
   validator = URLValidator(ip,tree).response_status_code()
