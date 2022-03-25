@@ -60,7 +60,7 @@ class URLValidator():
 
 class CreateTextFile:
   #
-  # Create a file
+  # Create a  file
   #
   def __init__(self,file_name: str, response: list[str]):
     self.file_name = file_name
